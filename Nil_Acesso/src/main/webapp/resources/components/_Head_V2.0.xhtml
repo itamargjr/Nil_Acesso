@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:cc="http://java.sun.com/jsf/composite"
+	  >
+
+	<cc:interface>
+		<cc:attribute name="title" default="Prefeitura Municipal de Nilópolis - Cidadania" required="false"/>
+	</cc:interface>
+	
+	<cc:implementation>
+		<h:head>
+		<!-- Template Que Controla o "Head" com os Importes da Aplicação -->
+		<!-- Forma de Mudar a ordem de procedência da renderização dos CSS e JS do primefaces com os customizados -->
+			<f:facet name="first">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+				<title>#{cc.attrs.title}</title>
+				
+				<link rel="shortcut icon" href="#{request.contextPath}/resources/imagens/logo.jpg"/>
+				
+			   	<!--  A Ordem dos Links dos CSS e dos js Fazem a Diferença  -->
+			    <!-- Funções utilitárias em JavaScript -->
+			    <h:outputScript library="js" name="#{paginasBean.funcoes}"/>
+			    <h:outputScript library="js" name="#{paginasBean.mascaras}"/> 
+			    
+			    <!-- Css onde estão as váriaveis de cor (Paleta) para uso global no css -->
+			   	<h:outputStylesheet library="css" name="#{paginasBean.variaveis}" />
+			</f:facet>
+			<f:facet name="last">
+				<!-- Css que reseta os valores padrões do objetos definidos pelo navegador (E já personalizado) -->
+				<h:outputStylesheet library="css" name="#{paginasBean.reset}"/>
+				<!-- Css de estilização -->
+		   		<h:outputStylesheet library="css" name="#{paginasBean.style}"/>	
+		   		<!-- Css responsivo para dispositivos <= a 320px -->
+			    <h:outputStylesheet library="css" name="#{paginasBean.tamanho320px}"/>
+			</f:facet>
+			
+			<cc:insertChildren/>
+		</h:head>
+	</cc:implementation>
+</html>

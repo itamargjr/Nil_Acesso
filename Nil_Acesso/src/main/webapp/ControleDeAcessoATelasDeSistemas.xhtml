@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+<ui:composition template="#{paginasBean._template}">  
+    <ui:define name="corpo">
+	    <p:panel header="Controle de Acesso a Telas de Sistemas ">
+			<h:form id="form">			
+				<p:messages for="form" redisplay="true" showIcon="false"/>	
+				
+		    	<p:growl/>
+					                                                 
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">
+						<p:outputLabel value = "Sistemas"/> 
+                 		<p:selectOneMenu value="#{acessousutelasBean.acessousutelas.codigo_sistema}" class = "TamanhoSelectPP">
+		           			<f:selectItem itemLabel="" itemValue="" />
+		          			<f:selectItems value="#{acessousutelasBean.sistemaslista}" var="acl"
+		       	           		itemValue="#{acl.codigo_sistema}" itemLabel="#{acl.nome_sistema}" />
+	               		</p:selectOneMenu>
+	    			</div>
+	    			<div class = "ObjetosColuna">
+						<p:outputLabel value = "Login"/> 
+                 		<p:selectOneMenu value="#{acessousutelasBean.acessousutelas.id_usu}" class = "TamanhoSelectPPP" filter="true" filterMatchMode="startsWith"
+                 			required="true" requiredMessage="Favor informar o usuário">
+		           			<f:selectItem itemLabel="" itemValue="" />
+		           			<f:selectItems value="#{acessousutelasBean.acessousuarioslista}" var="aud"
+		       	            	itemValue="#{aud.id_usu}" itemLabel="#{aud.login_usu}" />
+	               		</p:selectOneMenu>
+	    			</div>
+	    		</div>
+	    			
+	    		<br/>
+				
+				<div class="ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Buscar" action="#{acessousutelasBean.consultar}" update="form formconsulta " styleClass="BotaoPrimario"
+							onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();" ajax="false"/>
+					</div>
+				</div>						
+			</h:form>
+		</p:panel>
+		
+		<hr />
+		
+		<h:form id="formconsulta">
+			<p:growl id="msgs" showDetail="true"/>
+			
+			<div class="ObjetosLinha">
+				<div class="ObjetosColuna">
+					<p:commandButton value = "Gravar Alterações" action="#{acessousutelasBean.gravaralteracoes}"  update="formconsulta" 
+						styleClass="BotaoPrimario" onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();"/>
+				</div>
+			</div>
+			
+			<br />
+			
+			<p:dataTable id="tabela" value="#{acessousutelasBean.acessousutelaslista}" var="aut" emptyMessage="" 
+				selection="#{acessousutelasBean.acessousutelasselecionadaslista}" rowKey="#{aut.nome_tela}"  rowSelector="false">
+				
+				<p:column selectionMode="multiple" style="width:25px"/>
+			
+				<p:column headerText="Telas do Sistema" sortBy= "#{aut.nome_tela}">
+					#{aut.nome_tela} 
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

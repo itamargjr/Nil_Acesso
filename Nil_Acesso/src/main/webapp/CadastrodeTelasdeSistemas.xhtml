@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+<ui:composition template="#{paginasBean._template}">  
+    <ui:define name="corpo">
+	    <p:panel header="Cadastro de Telas de Sistema">
+			<h:form id="form">
+			
+			  <p:messages for="form" redisplay="true" showIcon="false"/>	
+				
+		    	<p:growl/>
+					                                                 
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">
+						<p:outputLabel value = "Sistemas"/> 
+                 		<p:selectOneMenu value="#{acessotelasBean.acessotelas.codigo_sistema}" class = "TamanhoSelectPP">
+		           			<f:selectItem itemLabel="" itemValue="" />
+		          			<f:selectItems value="#{acessotelasBean.sistemaslistas}" var="acl"
+		       	           		itemValue="#{acl.codigo_sistema}" itemLabel="#{acl.nome_sistema}" />
+	               		</p:selectOneMenu>
+	    			</div>	
+		 		</div>	
+					
+				<div class="ObjetosLinha">
+					<div class="ObjetosColuna">					
+						<p:outputLabel value="Nome" />			   
+						<p:inputText value="#{acessotelasBean.acessotelas.nome_tela}" onfocus="StringMaiuscula(this, 60)" class="TamanhoPP" />
+					</div>
+					
+					<div class = "ObjetosColuna">
+						<p:outputLabel value = "Status"/>
+               			<p:selectOneMenu value="#{acessotelasBean.acessotelas.status_tela}" class = "TamanhoSelectMIN">
+            				<f:selectItem itemLabel="" itemValue="" />
+            				<f:selectItem itemLabel="Ativo" itemValue="A" />
+            				<f:selectItem itemLabel="Inativo" itemValue="I" />
+        				</p:selectOneMenu>
+	     			</div>
+				</div>
+				
+		 		<br/>
+		 		
+		 		<div class="ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Buscar" action="#{acessotelasBean.buscar}" styleClass="BotaoPrimario" 
+							update="form formconsulta" onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();"/>
+					</div> 
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Cadastrar" action="#{acessotelasBean.abrirdialogocadastrar}" styleClass="BotaoSecundario" update="form formcadastrar"/>
+					</div>
+				</div>
+				
+			</h:form>
+			
+			<h:form id="formconsulta">
+				<p:dataTable id="tabela" paginator="true" rows="12" rowsPerPageTemplate="12, 24, 36" value="#{acessotelasBean.acessotelaslista}" var="tela" 
+					emptyMessage="" styleClass="Tabela">
+			
+					<p:column headerText="Sistema">
+						#{tela.nome_sistema}
+					</p:column>
+					
+					<p:column headerText="Tela">
+						#{tela.nome_tela}
+					</p:column>
+					
+					<p:column headerText="Status">
+						#{tela.status_tela eq 'A' ? 'ATIVA' : 'INATIVA'}
+					</p:column>
+								
+					<p:column>
+						<p:commandLink value="Alterar" action="#{acessotelasBean.abredialogoalterar}" update="formalterar">
+							<f:setPropertyActionListener value="#{tela}" target="#{acessotelasBean.acessotelasalteracao}" />
+						</p:commandLink>
+					</p:column>
+				
+					<p:column>
+						<p:commandLink value="Excluir" action="#{acessotelasBean.abredialogoexclusao}" update="formexcluir">
+							<f:setPropertyActionListener value="#{tela}" target="#{acessotelasBean.acessotelasalteracao}" />
+						</p:commandLink>
+					</p:column>			
+				</p:dataTable>
+			</h:form>
+	   	</p:panel>			
+		
+		<p:dialog widgetVar="dialogocadastrar" header="Cadastro de Telas de Sistemas" modal="true">
+			<h:form id="formcadastrar">
+			
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">
+						<p:outputLabel value = "Sistemas"/> 
+                 		<p:selectOneMenu value="#{acessotelasBean.acessotelas.codigo_sistema}" class = "TamanhoSelectPP"  required="true" requiredMessage="Favor informar o sistema">
+		           			<f:selectItem itemLabel="" itemValue="" />
+		          			<f:selectItems value="#{acessotelasBean.sistemaslistas}" var="acl"
+		       	           		itemValue="#{acl.codigo_sistema}" itemLabel="#{acl.nome_sistema}" />
+	               		</p:selectOneMenu>
+	    			</div>	
+		 		</div>
+			
+				<div class = "ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:outputLabel value = "Nome"/>
+						<p:inputText value = "#{acessotelasBean.acessotelas.nome_tela}" onfocus="StringMaiuscula(this, 50)" class = "TamanhoPP" required="true" requiredMessage="Favor informar o nome"/>
+					</div>				
+					
+					<div class = "ObjetosColuna">
+						<p:outputLabel value = "Status"/>
+               			<p:selectOneMenu value="#{acessotelasBean.acessotelas.status_tela}" class = "TamanhoSelectMIN" required="true" requiredMessage="Favor informar o status">
+            				<f:selectItem itemLabel="" itemValue="" />
+            				<f:selectItem itemLabel="Ativo" itemValue="A" />
+            				<f:selectItem itemLabel="Inativo" itemValue="I" />
+        				</p:selectOneMenu>
+	     			</div>	
+				</div>
+				 
+		  		<br/>
+		  		
+				<div class="ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Cadastrar" action="#{acessotelasBean.gravar}" update = "form formcadastrar" styleClass="BotaoPrimario"
+							 onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();"/>
+					</div>
+				</div>
+			
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dialogoalterar" header="Alteração de Telas de Sistemas" modal="true">
+			<h:form id="formalterar">
+			
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">
+						<p:outputLabel value = "Sistemas"/> 
+						<p:inputText value = "#{acessotelasBean.acessotelasalteracao.nome_sistema}" class = "TamanhoPP" readonly="true"/>
+	    			</div>	
+		 		</div>
+			
+				<div class = "ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:outputLabel value = "Nome"/>
+						<p:inputText value = "#{acessotelasBean.acessotelasalteracao.nome_tela}" onfocus="StringMaiuscula(this, 50)" class = "TamanhoPP" required="true" requiredMessage="Favor informar o nome"/>
+					</div>				
+					
+					<div class = "ObjetosColuna">
+						<p:outputLabel value = "Status"/>
+               			<p:selectOneMenu value="#{acessotelasBean.acessotelasalteracao.status_tela}" class = "TamanhoSelectMIN" required="true" requiredMessage="Favor informar o status">
+            				<f:selectItem itemLabel="" itemValue="" />
+            				<f:selectItem itemLabel="Ativo" itemValue="A" />
+            				<f:selectItem itemLabel="Inativo" itemValue="I" />
+        				</p:selectOneMenu>
+	     			</div>	
+				</div>		
+				 
+		  		<br/>
+		  		
+				<div class="ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Alterar" action="#{acessotelasBean.alterar}" update = "form formalterar" 
+							styleClass="BotaoPrimario" onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();"/>
+					</div>
+				</div>
+			
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dialogoexcluir" header="Exclusão de Telas de Sistemas" modal="true">
+		
+			<h:form id="formexcluir">
+			
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">
+						<p:outputLabel value = "Sistemas"/> 
+						<p:inputText value = "#{acessotelasBean.acessotelasalteracao.nome_sistema}" class = "TamanhoM" readonly="true"/>
+	    			</div>	
+		 		</div>
+			
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">	
+	    				<p:outputLabel value="Nome"/>
+	    				<p:inputText value ="#{acessotelasBean.acessotelasalteracao.nome_tela}" class ="TamanhoPP" readonly="true"/>
+					</div>	
+					
+					<div class = "ObjetosColuna">	
+	    				<p:outputLabel value="Status"/>
+	    				<p:inputText value ="#{acessotelasBean.acessotelasalteracao.status_tela eq 'A' ? 'ATIVA' : 'INATIVA'}" class ="TamanhoPP" readonly="true"/>
+					</div>
+	 			</div>		
+				 
+		  		<br/>
+		  		
+				<div class="ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Excluir" action="#{acessotelasBean.excluir}" styleClass="BotaoPrimario" update = "form formalterar" 
+							 onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();"/>
+					</div>
+				</div>
+			
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

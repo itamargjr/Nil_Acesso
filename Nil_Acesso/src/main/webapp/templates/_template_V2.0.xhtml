@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:w="http://java.sun.com/jsf/composite/components"
+	  >
+
+<w:_Head_V2.0/>
+   
+<h:body class="Container">
+    <header class="HeaderCabecalho">
+    
+    <style>
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+    
+	   	<h:form>
+	    	<p:commandLink action="#{paginasBean.Principal()}">
+	     		<h:graphicImage library="imagens" name="logo_texto.jpg" />
+	      	</p:commandLink>
+	      	<h1>Controle de Acesso</h1>
+	    </h:form>
+    </header>
+    	
+	<main>
+		<div>
+	    	<ui:insert name="menu"/>
+	    </div>  
+	
+		<ui:insert name="corpo"/>
+	</main>	    
+	
+    <footer class="FooterCopyright">
+    	<p>© 2024 Prefeitura Municipal de Nilópolis. Todos os Direitos Reservados - <span>#{acessoBean.banco()}</span></p> 
+    </footer>
+	
+	<h:form>
+		<p:dialog  widgetVar="carregandoDiag" modal="true" draggable="false" closable="false" resizable="false" 
+			showHeader="false" height="120px" width="120px" contentStyle="overflow:hidden;">
+			<div class="center-content">
+				<p:graphicImage name="7YUP.gif" library="imagens" />
+			</div>
+		</p:dialog>
+	</h:form> 
+</h:body>
+</html>

@@ -1,0 +1,34 @@
+/*
+	Proporções Criadas Com Base em 320px de width.
+*/
+
+@media (min-width: 319px) and (max-width: 1023px){
+	.TamanhoSelectMIN, .TamanhoSelectPPP, .TamanhoSelectPP, .TamanhoSelectP, .TamanhoSelectM, .TamanhoSelectG, .TamanhoSelectGG,
+	.TamanhoSelectXGG{
+		width: 108px !important;
+	}
+	
+	.TamanhoSpinnerMIN input, .TamanhoSpinnerPP input, .TamanhoSpinnerP input,
+	.TamanhoSpinnerM input, .TamanhoSpinnerG input, .TamanhoSpinnerGG input,
+	.TamanhoSpinnerXGG input, .TamanhoSpinnerMAX input, .TamanhoSpinnerPPP input{
+		width: 100px;
+	}
+
+	.TamanhoMIN, .TamanhoPPP, .TamanhoPP, .TamanhoP, .TamanhoM, .TamanhoG, .TamanhoGG, .TamanhoXGG, .TamanhoMAX{
+		width: 100px;
+	}
+
+/* Header */
+	.HeaderCabecalho form{
+		height: auto;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	
+	.HeaderCabecalho form h1{
+		margin-right: 0px;
+		margin-left: 44px;
+		text-align: center;
+	}
+/* End Header */
+}

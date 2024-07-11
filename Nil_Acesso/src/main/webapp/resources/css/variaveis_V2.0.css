@@ -1,0 +1,13 @@
+/* Campo Usado para Criar Variáveis Globais */
+:root{
+	/* Cores */
+		--corPrincipal:	#1267b0;		
+		--corSecundaria:  #1ab1f9;
+		--corSecundariaClara: #e4e7f7; 
+		--corLetra: #dceff5; 
+		--corHeader: #edf2f5;
+		--corBranco: #ffffff;
+		--corZebraGrid:#edf2f5
+	/* fim Cores */
+}
+

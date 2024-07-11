@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+<ui:composition template="#{paginasBean._template}">  
+    <ui:define name="corpo">
+	    <p:panel header="Cadastro Sistemas">
+			<h:form id="form">
+			
+				<p:messages for="form" redisplay="true" showIcon="false"/>	
+				
+				<p:growl/>	
+			
+				<div class = "ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:outputLabel value = "Nome"/>
+						<p:inputText value = "#{acessosistemasBean.acessosistemas.nome_sistema}" onfocus="StringMaiuscula(this, 60)" class = "TamanhoPP"/>
+					</div>
+				</div>
+				
+			     <br/>
+			     
+			     <div class="ObjetosLinha"> 
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Buscar" action="#{acessosistemasBean.buscar}" styleClass="BotaoPrimario" 
+							update="form formconsulta" onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();"/>
+					</div>
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Cadastrar" action="#{acessosistemasBean.abrirdialogocadastrar}" styleClass="BotaoSecundario" update="formcadastrar"/>
+					</div>
+				</div>
+			</h:form>
+			<h:form id="formconsulta">
+				<p:dataTable id="tabela" paginator="true" rows="12" rowsPerPageTemplate="12, 24, 36" 
+					value="#{acessosistemasBean.acessosistemaslista}" var="sis"	emptyMessage="" styleClass="Tabela">
+			
+					<p:column headerText="Nome">
+						#{sis.nome_sistema}
+					</p:column>
+					
+					<p:column headerText="Descrição">
+						#{sis.descricao_sistema}
+					</p:column>
+					
+					<p:column headerText="Data">
+						#{sis.datacriacao_sistema}
+					</p:column>
+								
+					<p:column>
+						<p:commandLink value="Alterar" action="#{acessosistemasBean.abredialogoalterar}" update="formalterar">
+							<f:setPropertyActionListener value="#{sis}" target="#{acessosistemasBean.acessosistemasalteracao}" />
+						</p:commandLink>
+					</p:column>
+				
+					<p:column>
+						<p:commandLink value="Excluir" action="#{acessosistemasBean.abredialogoexclusao}" update="formexcluir">
+							<f:setPropertyActionListener value="#{sis}" target="#{acessosistemasBean.acessosistemasalteracao}" />
+						</p:commandLink>
+					</p:column>			
+				</p:dataTable>
+			</h:form>
+		</p:panel>		
+		
+		
+		<p:dialog widgetVar="dialogocadastrar" header="Cadastro de Sistema" modal="true">
+			<h:form id="formcadastrar">
+			
+				<div class = "ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:outputLabel value = "Nome"/>
+						<p:inputText value = "#{acessosistemasBean.acessosistemas.nome_sistema}" onfocus="StringMaiuscula(this, 50)" class = "TamanhoPP" required="true" requiredMessage="Favor informar o nome"/>
+					</div>
+				</div>
+				
+				<div class = "ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:outputLabel value = "Data"/>
+						<p:inputText value = "#{acessosistemasBean.acessosistemas.datacriacao_sistema}" onfocus="Data(this)" class = "TamanhoPP" readonly="true"/>
+					</div>
+				</div>	
+				
+				<div class = "ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:outputLabel value = "Descricao"/>
+						<p:inputText value = "#{acessosistemasBean.acessosistemas.descricao_sistema}" onfocus="StringMaiuscula(this, 150)" class = "TamanhoM" required="true" requiredMessage="Favor informar a descrição"/>
+					</div>
+				</div>	
+				 
+		  		<br/>
+		  		
+				<div class="ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Cadastrar" action="#{acessosistemasBean.gravar}" ajax="false" update = ":form :formcadastrar" styleClass="BotaoPrimario"/>
+					</div>
+				</div>
+			
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dialogoalterar" header="Alteração de Sistema" modal="true">
+			<h:form id="formalterar">
+			
+				<div class = "ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:outputLabel value = "Nome"/>
+						<p:inputText value = "#{acessosistemasBean.acessosistemasalteracao.nome_sistema}" onfocus="StringMaiuscula(this, 50)" class = "TamanhoM" required="true" requiredMessage="Favor informar o nome"/>
+					</div>
+				</div>
+				
+				<div class = "ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:outputLabel value = "Data"/>
+						<p:inputText value = "#{acessosistemasBean.acessosistemasalteracao.datacriacao_sistema}" onfocus="Data(this)" class = "TamanhoPP" readonly="true"/>
+					</div>
+				</div>	
+				
+				<div class = "ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:outputLabel value = "Descricao"/>
+						<p:inputText value = "#{acessosistemasBean.acessosistemasalteracao.descricao_sistema}" onfocus="StringMaiuscula(this, 150)" class = "TamanhoM" required="true" requiredMessage="Favor informar a descrição"/>
+					</div>
+				</div>		
+				 
+		  		<br/>
+		  		
+				<div class="ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Alterar" action="#{acessosistemasBean.alterar}" update = "form formalterar" 
+							styleClass="BotaoPrimario"  onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();"/>
+					</div>
+				</div>
+			
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dialogoexcluir" header="Exclusão de Sistema" modal="true">
+		
+			<h:form id="formexcluir">
+			
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">	
+	    				<p:outputLabel value="Nome"/>
+	    				<p:inputText value ="#{acessosistemasBean.acessosistemasalteracao.nome_sistema}" class ="TamanhoPP" readonly="true"/>
+					</div>	
+	 			</div>		
+				 
+		  		<br/>
+		  		
+				<div class="ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Excluir" action="#{acessosistemasBean.excluir}" ajax="false" styleClass="BotaoPrimario"/>
+					</div>
+				</div>
+			
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html> 
+
+
+	
+				

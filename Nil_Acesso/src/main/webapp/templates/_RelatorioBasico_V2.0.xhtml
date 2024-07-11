@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:w="http://java.sun.com/jsf/composite/components"
+	  >
+
+<w:_Head_V2.0>
+	<h:outputStylesheet library="css" name="styleRelatorio_V2.0.css"/>
+</w:_Head_V2.0>
+
+<!-- 
+
+	ui:insert
+		name = styleJs - Parte onde ficará todas as tags <style> <script> adicionais
+		name = titulo - Parte onde ficará o nome do relatório (só colocar uma tag ex:. <span>TITULO</span>)
+		name = conteudo - Parte onde ficará to o conteúdo do relatório
+	
+-->
+
+<h:body class="Container">
+	<style>
+		@media print{
+			.TirarObjeto{
+				display: none;
+			}
+		}
+	</style>
+   	<ui:insert name="styleJs"/>
+
+	<div class="MenuRelatorioBasico" style="width: 100%;">
+		<p:link outcome="#{paginasBean.principal}">
+			<h:graphicImage library="imagens" name="logo_texto.jpg"/>
+		</p:link>
+		<div style="width: 100%;">
+			<span>Werner Fábrica de Tecidos</span>
+			<ui:insert name="titulo"/>
+		</div>
+		<div style="float: left; width: 100%;">
+			<ui:insert name="menuTituloExtra"/>
+		</div>
+	</div>
+    
+    <section class="SectionAjuste">
+	   	<div>
+	   		<ui:insert name="conteudo"/>
+	   		<br/>
+	   		<p:button value="Imprimir" href="javascript:window.print()" styleClass="TirarObjeto BotaoSecundario"/>
+	    </div>	    
+	</section>
+	
+</h:body>
+</html>

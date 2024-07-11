@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+<ui:composition template="#{paginasBean._template}">  
+    <ui:define name="corpo">
+	    <p:panel header="Cadastro de Usuários">
+			<h:form id="form">
+			
+				<p:messages for="form" redisplay="true" showIcon="false"/>	
+				
+				<p:growl/>	
+			
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">	
+	    				<p:outputLabel value="Nome"/>
+	    				<p:inputText value ="#{acessousuariosBean.acessousuarios.nome_usu}" onfocus="StringMaiuscula(this, 150)" class ="TamanhoPP"/>
+					</div>
+					<div class="ObjetosColuna">
+						<p:outputLabel value ="CPF"/>
+						<p:inputText value ="#{acessousuariosBean.acessousuarios.cpf_usu}" onfocus="Cpf(this)" class ="TamanhoMIN"/>
+					</div>
+		    		<div class = "ObjetosColuna">
+			 		  	<p:outputLabel value = "Login"/>
+						<p:inputText value ="#{acessousuariosBean.acessousuarios.login_usu}" onfocus="StringMaiuscula(this, 50)" class ="TamanhoMIN" />
+		   			</div>
+	    		</div>     
+	 
+		  		<br/>
+		  		
+				<div class="ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Buscar" action="#{acessousuariosBean.buscar}" ajax="false" styleClass="BotaoPrimario"/>
+					</div>
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Cadastrar" action="#{acessousuariosBean.abrirdialogocadastrar}" styleClass="BotaoSecundario" update="formcadastrar"/>
+					</div>
+				</div>	     
+			</h:form>
+			<h:form id="formconsulta">
+				<p:dataTable id="tabela" paginator="true" rows="12" rowsPerPageTemplate="12, 24, 36" value="#{acessousuariosBean.acessousuarioslista}" var="usu" 
+					emptyMessage="" styleClass="Tabela">
+			
+					<p:column headerText="Nome">
+						#{usu.nome_usu}
+					</p:column>
+	
+					<p:column headerText="Login">
+						#{usu.login_usu}
+					</p:column>
+					
+					<p:column headerText="CPF">
+						#{usu.cpf_usu}
+					</p:column>
+					
+					<p:column headerText="Nascimento">
+						#{usu.datanasc_usu}
+					</p:column>
+					
+					<p:column headerText="Tipo" sortBy= "#{usu.usu_admin}">
+						#{usu.tipo_usu eq 'A' ? 'Administrador' : 'Comum'}
+					</p:column>
+								
+					<p:column headerText="Status" sortBy= "#{usu.status_usu}">
+						#{usu.status_usu eq 'A' ? 'ATIVO' : 'INATIVO'}
+					</p:column>
+								
+					<p:column>
+						<p:commandLink value="Alterar" action="#{acessousuariosBean.abredialogoalterar}" update="formalterar">
+							<f:setPropertyActionListener value="#{usu}" target="#{acessousuariosBean.acessousuariosalteracao}" />
+						</p:commandLink>
+					</p:column>
+				
+					<p:column>
+						<p:commandLink value="Excluir" action="#{acessousuariosBean.abredialogoexclusao}" update="formexcluir">
+							<f:setPropertyActionListener value="#{usu}" target="#{acessousuariosBean.acessousuariosalteracao}" />
+						</p:commandLink>
+					</p:column>			
+				</p:dataTable>
+			</h:form>
+	   	</p:panel>
+		
+		<p:dialog widgetVar="dialogocadastrar" header="Cadastro de Usuário" modal="true">
+			<h:form id="formcadastrar">
+			
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">	
+	    				<p:outputLabel value="Nome"/>
+	    				<p:inputText value ="#{acessousuariosBean.acessousuarios.nome_usu}" onfocus="StringMaiuscula(this, 150)" class ="TamanhoPP" required="true" requiredMessage="Favor informar o nome"/>
+					</div>
+					<div class="ObjetosColuna">
+						<p:outputLabel value ="CPF"/>
+						<p:inputText value ="#{acessousuariosBean.acessousuarios.cpf_usu}" onfocus="Cpf(this)" class ="TamanhoMIN" required="true" requiredMessage="Favor informar o CPF" />
+					</div>
+		    		<div class = "ObjetosColuna">
+			 		  	<p:outputLabel value = "Login"/>
+						<p:inputText value ="#{acessousuariosBean.acessousuarios.login_usu}" onfocus="StringMaiuscula(this, 50)" class ="TamanhoMIN" required="true" requiredMessage="Favor informar o Login" />
+		   			</div>
+	    		</div>
+	    
+			
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">	
+	    				<p:outputLabel value="Nascimento"/>
+	    				<p:inputText value ="#{acessousuariosBean.acessousuarios.datanasc_usu}" onfocus="Data(this)" class ="TamanhoPP" required="true" requiredMessage="Favor informar a data de nascimento"/>
+					</div>	
+					<div class = "ObjetosColuna">
+	   					<p:outputLabel value = "Senha"/>
+						<p:inputText value ="#{acessousuariosBean.acessousuarios.senha_usu}" onfocus="StringMaiuscula(this, 10)" class ="TamanhoMIN" required="true" requiredMessage="Favor informar a senha"/>
+					</div>
+				</div>	
+		     			
+		     	<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">
+						<p:outputLabel value = "Tipo"/>
+               			<p:selectOneMenu value="#{acessousuariosBean.acessousuarios.tipo_usu}" class = "TamanhoSelectMIN" required="true" requiredMessage="Favor informar o tipo">
+            				<f:selectItem itemLabel="" itemValue="" />
+            				<f:selectItem itemLabel="Comun" itemValue="C" />
+            				<f:selectItem itemLabel="Administrador" itemValue="A" />
+        				</p:selectOneMenu>
+	     			</div>		
+	 			</div>     
+		
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">
+						<p:outputLabel value = "Status"/>
+               			<p:selectOneMenu value="#{acessousuariosBean.acessousuarios.status_usu}" class = "TamanhoSelectMIN" required="true" requiredMessage="Favor informar o status">
+            				<f:selectItem itemLabel="" itemValue="" />
+            				<f:selectItem itemLabel="Ativo" itemValue="A" />
+            				<f:selectItem itemLabel="Inativo" itemValue="I" />
+        				</p:selectOneMenu>
+	     			</div>	
+	 			</div>		
+				 
+		  		<br/>
+		  		
+				<div class="ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Cadastrar" action="#{acessousuariosBean.gravar}" ajax="false" update = ":form :formcadastrar" styleClass="BotaoPrimario"/>
+					</div>
+				</div>
+			
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dialogoalterar" header="Alteração de Usuário" modal="true">
+			<h:form id="formalterar">
+			
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">	
+	    				<p:outputLabel value="Nome"/>
+	    				<p:inputText value ="#{acessousuariosBean.acessousuariosalteracao.nome_usu}" onfocus="StringMaiuscula(this, 150)" class ="TamanhoPP" required="true" requiredMessage="Favor informar o nome"/>
+					</div>
+					<div class="ObjetosColuna">
+						<p:outputLabel value ="CPF"/>
+						<p:inputText value ="#{acessousuariosBean.acessousuariosalteracao.cpf_usu}" onfocus="Cpf(this)" class ="TamanhoMIN" required="true" requiredMessage="Favor informar o CPF" />
+					</div>
+		    		<div class = "ObjetosColuna">
+			 		  	<p:outputLabel value = "Login"/>
+						<p:inputText value ="#{acessousuariosBean.acessousuariosalteracao.login_usu}" onfocus="StringMaiuscula(this, 50)" class ="TamanhoMIN" required="true" requiredMessage="Favor informar o Login" />
+		   			</div>
+	    		</div>
+	    
+			
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">	
+	    				<p:outputLabel value="Nascimento"/>
+	    				<p:inputText value ="#{acessousuariosBean.acessousuariosalteracao.datanasc_usu}" onfocus="Data(this)" class ="TamanhoPP" required="true" requiredMessage="Favor informar a data de nascimento"/>
+					</div>	
+					<div class = "ObjetosColuna">
+	   					<p:outputLabel value = "Senha"/>
+						<p:inputText value ="#{acessousuariosBean.acessousuariosalteracao.senha_usu}" onfocus="StringMaiuscula(this, 10)" class ="TamanhoMIN" required="true" requiredMessage="Favor informar a senha"/>
+					</div>
+				</div>	
+		     			
+		     	<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">
+						<p:outputLabel value = "Tipo"/>
+               			<p:selectOneMenu value="#{acessousuariosBean.acessousuariosalteracao.tipo_usu}" class = "TamanhoSelectMIN" required="true" requiredMessage="Favor informar o tipo">
+            				<f:selectItem itemLabel="" itemValue="" />
+            				<f:selectItem itemLabel="Comun" itemValue="C" />
+            				<f:selectItem itemLabel="Administrador" itemValue="A" />
+        				</p:selectOneMenu>
+	     			</div>		
+	 			</div>     
+		
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">
+						<p:outputLabel value = "Status"/>
+               			<p:selectOneMenu value="#{acessousuariosBean.acessousuariosalteracao.status_usu}" class = "TamanhoSelectMIN" required="true" requiredMessage="Favor informar o status">
+            				<f:selectItem itemLabel="" itemValue="" />
+            				<f:selectItem itemLabel="Ativo" itemValue="A" />
+            				<f:selectItem itemLabel="Inativo" itemValue="I" />
+        				</p:selectOneMenu>
+	     			</div>	
+	 			</div>		
+				 
+		  		<br/>
+		  		
+				<div class="ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Alterar" action="#{acessousuariosBean.alterar}" ajax="false" update = ":form:formalterar" styleClass="BotaoPrimario"/>
+					</div>
+				</div>
+			
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dialogoexcluir" header="Exclusão de Usuário" modal="true">
+		
+			<h:form id="formexcluir">
+			
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">	
+	    				<p:outputLabel value="Nome"/>
+	    				<p:inputText value ="#{acessousuariosBean.acessousuariosalteracao.nome_usu}" class ="TamanhoPP" readonly="true"/>
+					</div>
+					<div class="ObjetosColuna">
+						<p:outputLabel value ="CPF"/>
+						<p:inputText value ="#{acessousuariosBean.acessousuariosalteracao.cpf_usu}" class ="TamanhoMIN" readonly="true"/>
+					</div>
+		    		<div class = "ObjetosColuna">
+			 		  	<p:outputLabel value = "Login"/>
+						<p:inputText value ="#{acessousuariosBean.acessousuariosalteracao.login_usu}" class ="TamanhoMIN" readonly="true"/>
+		   			</div>
+	    		</div>
+	    
+			
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">	
+	    				<p:outputLabel value="Nascimento"/>
+	    				<p:inputText value ="#{acessousuariosBean.acessousuariosalteracao.datanasc_usu}" class ="TamanhoPP" readonly="true"/>
+					</div>	
+					<div class = "ObjetosColuna">
+	   					<p:outputLabel value = "Senha"/>
+						<p:inputText value ="#{acessousuariosBean.acessousuariosalteracao.senha_usu}" class ="TamanhoMIN" readonly="true"/>
+					</div>
+				</div>	
+		     			
+		     	<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">
+						<p:outputLabel value = "Tipo"/>
+						<p:inputText value = "#{acessousuariosBean.acessousuariosalteracao.tipo_usu eq 'A' ? 'Administrador' : 'Comum'}" class ="TamanhoMIN" readonly="true"/>
+	     			</div>		
+	 			</div>     
+		
+				<div class = "ObjetosLinha">
+					<div class = "ObjetosColuna">
+						<p:outputLabel value = "Status"/>
+						<p:inputText value = "#{usu.status_usu eq 'A' ? 'ATIVO' : 'INATIVO'}" class ="TamanhoMIN" readonly="true"/>
+	     			</div>	
+	 			</div>		
+				 
+		  		<br/>
+		  		
+				<div class="ObjetosLinha">
+					<div class="ObjetosColuna">
+						<p:commandButton value = "Excluir" action="#{acessousuariosBean.excluir}" ajax="false" styleClass="BotaoPrimario"/>
+					</div>
+				</div>
+			
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html> 

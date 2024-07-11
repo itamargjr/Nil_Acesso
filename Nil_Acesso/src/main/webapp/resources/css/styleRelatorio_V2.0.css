@@ -1,0 +1,70 @@
+@page{
+	size: A4 portrait;
+	margin: 0.6cm;
+	padding: 0;
+}
+
+body{
+	padding: 10px;
+}
+
+legend {
+	background: none !important;
+}
+
+/* Classe para estilizar o Menu do Template "_RelatorioBasico" */
+	.MenuRelatorioBasico{
+		border-bottom: solid windowtext 1px; 
+		padding-bottom: 10px; 
+		display: flex; 
+		align-items: center;
+	}
+	
+	.MenuRelatorioBasico a{
+		margin-right: 20px;
+	}
+	
+	.MenuRelatorioBasico a img{
+		width: 330px;
+		height: 103;
+	}
+	
+	.MenuRelatorioBasico div{
+		display: flex; 
+		flex-direction: column; 
+		text-align: center; 
+		font-size: 16.0pt; 
+		line-height: 107%;
+	}
+/* */
+	
+
+.DataTableBasico header, .DataTableBasicoHeader{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid black;
+	padding: 5px 10px;
+}
+.DataTableBasico header div p, .DataTableBasicoHeader div p{
+	font-weight: bold;
+	font-size: 15px;
+	margin: 5px;
+}
+
+.DataTableBasico section, .DataTableBasicoCorpo{
+	display: flex;
+	justify-content: space-between;
+	padding: 5px 10px;
+}
+.DataTableBasico section div p, .DataTableBasicoCorpo div p{
+	font-weight: normal;
+	font-size: 12px;
+	margin: 3px 5px;
+}
+
+.Container{
+	height: 100%;
+	font-size: 12px;
+	font-weight: normal;
+}

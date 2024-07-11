@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+      
+  <ui:composition template="#{paginasBean._template}"> 	  
+      <ui:define name="menu">
+         <div class="menu">
+              <div id="menu">	
+                    <h:form>
+                        <p:panelMenu  class="AjusteMenuPrincipal">
+	                        <p:submenu label="Cadastros" expanded="true">
+	                        	<p:menuitem disabled="#{paginasBean.validausu(10210)}" value="Cadastro de Usuarios" url="CadastroUsuarios.xhtml"  onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();"/>
+	                        	<p:menuitem disabled="#{paginasBean.validausu(10216)}" value="Cadastro de Sistemas" url="CadastrodeSistemas.xhtml"  onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();"/>
+	                        	<p:menuitem disabled="#{paginasBean.validausu(10218)}" value="Cadastro de Telas de Sistemas" url="CadastrodeTelasdeSistemas.xhtml"  onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();"/>
+	                        </p:submenu>
+	                       
+	                        <p:submenu label="Acesso" expanded="true">
+	                       		<p:menuitem disabled = "#{paginasBean.validausu(10220)}" value="Controle de Acesso a Telas de Sistemas" url="ControleDeAcessoATelasDeSistemas.xhtml"  onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();"/>
+	                       		<p:menuitem disabled = "#{paginasBean.validausu(10630)}" value="Consulta de Histórico de Sistemas" url="consultaHistoricoSistema.xhtml"  onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();"/>
+	                        </p:submenu>
+	                        
+	                        <p:submenu label="Relatório" expanded="true">
+	                        	<p:menuitem disabled = "#{paginasBean.validausu(10250)}" value="Relatório de Acesso por Tela" url="RelatorioAcessoPorTela.xhtml"  onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();"/>
+	                       		<p:menuitem disabled = "#{paginasBean.validausu(10221)}" value="Relatório de Acesso por Usuário" url="RelatorioAcessoPorUsuario.xhtml"  onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();"/>
+	                        </p:submenu>
+	                       
+	                        <p:submenu label="Opções" expanded="true">	                        
+			                    <p:menuitem value="Sair" action="#{paginasBean.logout}"  onclick="PF('carregandoDiag').show();" onsuccess="PF('carregandoDiag').hide();"/>			                        
+			    			</p:submenu>
+                        </p:panelMenu>           
+                    </h:form>
+              </div>
+         </div>
+      </ui:define>
+  </ui:composition>
+</html>
+
+
+
+
+
+
+
